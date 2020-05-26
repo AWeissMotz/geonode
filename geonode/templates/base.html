@@ -35,9 +35,10 @@
 
     <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
 
-    <link rel="shortcut icon" href="{% static 'geonode/img/favicon.ico' %}" />
+    <link rel="shortcut icon" href="{% static 'geonode/img/logo-5-blitz.png' %}" />
     <link href="{% static "lib/css/ol.css" %}" rel="stylesheet" />
     <script src="{% static "lib/js/ol.js" %}"></script>
+    <script src="{% static "geonode/js/utils/slider.js" %}"></script>
 
     {% block head %}
 
@@ -54,6 +55,7 @@
       {% endif %}
 
       <link href="{% static "geonode/css/base.css" %}" rel="stylesheet" />
+      <link href="{% static "geonode/css/slider.scss" %}" rel="stylesheetslider" />
 
       <link rel='stylesheet' id='cookie-law-info-css'  href="{% static "geonode/css/cookie-law-info/cookie-law-info-public.css" %}" type='text/css' media='all' />
       <link rel='stylesheet' id='cookie-law-info-gdpr-css'  href="{% static "geonode/css/cookie-law-info/cookie-law-info-gdpr.css" %}" type='text/css' media='all' />
@@ -346,27 +348,7 @@
                {% render_nav_menu 'TOPBAR_MENU' %}
 
            {% endblock my_extra_right_tab %}
-
-            <li>
-              <div class="search">
-                <form id="search" action="{% url "search" %}" >
-                  <span class="fa fa-search"></span>
-                  <div id="search-container" class="autocomplete-input">
-                    {% if HAYSTACK_SEARCH %}
-                    <input autocomplete="off" id="search_input" type="text" placeholder="{% trans 'Search' %}" name="q">
-                    <input type="hidden" name="abstract__icontains" id="search_abstract_input" placeholder="Search" >
-                    <input type="hidden" name="purpose__icontains" id="search_purpose_input" placeholder="Search" >
-                    <input type="hidden" name="f_method" id="filtering_type" value="or" >
-                    {% else %}
-                    <input autocomplete="off" type="text" name="title__icontains" id="search_input" placeholder="Search" >
-                    <input type="hidden" name="abstract__icontains" id="search_abstract_input" placeholder="Search" >
-                    <input type="hidden" name="purpose__icontains" id="search_purpose_input" placeholder="Search" >
-                    <input type="hidden" name="f_method" id="filtering_type" value="or" >
-                    {% endif %}
-                  </div>
-                </form>
-              </div>
-            </li>
+            
             {% if not user.is_authenticated and ACCOUNT_OPEN_SIGNUP and not READ_ONLY_MODE %}
               <li><a href="{% url "account_signup" %}">{% trans "Register" %}</a></li>
             {% endif %}
@@ -409,13 +391,14 @@
               </li>
           {% else %}
           <li><a href="#" data-toggle="modal" data-target="#SigninModal" role="button" >{% trans "Sign in" %} </a></li>
-              {% endif %}
-            </ul>
-          </div> <!--/.nav-collapse -->
-        </div>
-      </nav>
-      {% endblock header %}
-      <!-- End of Navbar -->
+          {% endif %}
+          <img class="logo-nigeria" src="../static/geonode/img/NGA_Coat.png">                    
+        </ul>
+      </div> <!--/.nav-collapse -->
+    </div>
+  </nav>
+  {% endblock header %}
+  <!-- End of Navbar -->
 
     <div class="alert alert-danger alert-dismissible" role="alert" id="ieflag" style="display:none">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>

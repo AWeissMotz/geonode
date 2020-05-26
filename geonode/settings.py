@@ -29,6 +29,11 @@ from urllib.parse import urlparse, urlunparse, urljoin
 
 import django
 import dj_database_url
+
+
+SITEURL = "http://localhost:8000/"
+
+
 #
 # General Django development settings
 #
@@ -982,8 +987,8 @@ CATALOGUE = {
         # 'URL': 'http://localhost:8080/deegree-csw-demo-3.0.4/services',
 
         # login credentials (for GeoNetwork)
-        # 'USER': 'admin',
-        # 'PASSWORD': 'admin',
+        'USER': 'admin',
+        'PASSWORD': 'admin',
 
         # 'ALTERNATES_ONLY': True,
     }

@@ -83,7 +83,7 @@ except Exception:
     _parallel = ''
 
 assert sys.version_info >= (2, 6), \
-    SystemError("GeoNode Build requires python 2.6 or better")
+    SystemError("GeoNode Build requires python3 2.6 or better")
 
 dev_config = None
 with open("dev_config.yml", 'r') as f:
@@ -384,8 +384,8 @@ def upgradedb(options):
     """
     version = options.get('version')
     if version in ['1.1', '1.2']:
-        sh("python -W ignore manage.py migrate maps 0001 --fake")
-        sh("python -W ignore manage.py migrate avatar 0001 --fake")
+        sh("python3 -W ignore manage.py migrate maps 0001 --fake")
+        sh("python3 -W ignore manage.py migrate avatar 0001 --fake")
     elif version is None:
         print("Please specify your GeoNode version")
     else:
@@ -404,7 +404,7 @@ def updategeoip(options):
     if settings and 'DJANGO_SETTINGS_MODULE' not in settings:
         settings = 'DJANGO_SETTINGS_MODULE=%s' % settings
 
-    sh("%s python -W ignore manage.py updategeoip -o" % settings)
+    sh("%s python3 -W ignore manage.py updategeoip -o" % settings)
 
 
 @task
@@ -419,14 +419,14 @@ def sync(options):
     if settings and 'DJANGO_SETTINGS_MODULE' not in settings:
         settings = 'DJANGO_SETTINGS_MODULE=%s' % settings
 
-    sh("%s python -W ignore manage.py makemigrations --noinput" % settings)
-    sh("%s python -W ignore manage.py migrate --noinput" % settings)
-    sh("%s python -W ignore manage.py loaddata sample_admin.json" % settings)
-    sh("%s python -W ignore manage.py loaddata geonode/base/fixtures/default_oauth_apps.json" % settings)
-    sh("%s python -W ignore manage.py loaddata geonode/base/fixtures/initial_data.json" % settings)
+    sh("%s python3 -W ignore manage.py makemigrations --noinput" % settings)
+    sh("%s python3 -W ignore manage.py migrate --noinput" % settings)
+    sh("%s python3 -W ignore manage.py loaddata sample_admin.json" % settings)
+    sh("%s python3 -W ignore manage.py loaddata geonode/base/fixtures/default_oauth_apps.json" % settings)
+    sh("%s python3 -W ignore manage.py loaddata geonode/base/fixtures/initial_data.json" % settings)
     if 'django_celery_beat' in INSTALLED_APPS:
-        sh("%s python -W ignore manage.py loaddata geonode/base/fixtures/django_celery_beat.json" % settings)
-    sh("%s python -W ignore manage.py set_all_layers_alternate" % settings)
+        sh("%s python3 -W ignore manage.py loaddata geonode/base/fixtures/django_celery_beat.json" % settings)
+    sh("%s python3 -W ignore manage.py set_all_layers_alternate" % settings)
 
 
 @task
@@ -445,10 +445,10 @@ def package(options):
     out_pkg = path(pkgname)
     out_pkg_tar = path("%s.tar.gz" % pkgname)
 
-    # Create a distribution in zip format for the geonode python package.
+    # Create a distribution in zip format for the geonode python3 package.
     dist_dir = path('dist')
     dist_dir.rmtree()
-    sh('python setup.py sdist --formats=zip')
+    sh('python3 setup.py sdist --formats=zip')
 
     with pushd('package'):
 
@@ -514,9 +514,9 @@ def stop_django(options):
     """
     Stop the GeoNode Django application
     """
-    kill('python', 'celery')
-    kill('python', 'runserver')
-    kill('python', 'runmessaging')
+    kill('python3', 'celery')
+    kill('python3', 'runserver')
+    kill('python3', 'runmessaging')
 
 
 @task
@@ -588,7 +588,7 @@ def stop(options):
     """
     Stop GeoNode
     """
-    # windows needs to stop the geoserver first b/c we can't tell which python
+    # windows needs to stop the geoserver first b/c we can't tell which python3
     # is running, so we kill everything
     info("Stopping GeoNode ...")
     stop_django(options)
@@ -608,7 +608,7 @@ def start_django(options):
     bind = options.get('bind', '0.0.0.0:8000')
     port = bind.split(":")[1]
     foreground = '' if options.get('foreground', False) else '&'
-    sh('%s python -W ignore manage.py runserver %s %s' % (settings, bind, foreground))
+    sh('%s python3 -W ignore manage.py runserver %s %s' % (settings, bind, foreground))
 
     celery_queues = [
         "default",
@@ -641,7 +641,7 @@ def start_django(options):
         ))
 
     if ASYNC_SIGNALS:
-        sh('%s python -W ignore manage.py runmessaging %s' % (settings, foreground))
+        sh('%s python3 -W ignore manage.py runmessaging %s' % (settings, foreground))
 
     # wait for Django to start
     started = waitfor("http://localhost:" + port)
@@ -659,7 +659,7 @@ def start_messaging(options):
     if settings and 'DJANGO_SETTINGS_MODULE' not in settings:
         settings = 'DJANGO_SETTINGS_MODULE=%s' % settings
     foreground = '' if options.get('foreground', False) else '&'
-    sh('%s python -W ignore manage.py runmessaging %s' % (settings, foreground))
+    sh('%s python3 -W ignore manage.py runmessaging %s' % (settings, foreground))
 
 
 @task
@@ -911,24 +911,24 @@ def test_integration(options):
         elif not integration_csw_tests and _backend == 'geonode.geoserver' and 'geonode.geoserver' in INSTALLED_APPS:
             sh("cp geonode/upload/tests/test_settings.py geonode/")
             settings = 'geonode.test_settings'
-            sh("DJANGO_SETTINGS_MODULE={} python -W ignore manage.py "
+            sh("DJANGO_SETTINGS_MODULE={} python3 -W ignore manage.py "
                "makemigrations --noinput".format(settings))
-            sh("DJANGO_SETTINGS_MODULE={} python -W ignore manage.py "
+            sh("DJANGO_SETTINGS_MODULE={} python3 -W ignore manage.py "
                "migrate --noinput".format(settings))
-            sh("DJANGO_SETTINGS_MODULE={} python -W ignore manage.py "
+            sh("DJANGO_SETTINGS_MODULE={} python3 -W ignore manage.py "
                "loaddata sample_admin.json".format(settings))
-            sh("DJANGO_SETTINGS_MODULE={} python -W ignore manage.py "
+            sh("DJANGO_SETTINGS_MODULE={} python3 -W ignore manage.py "
                "loaddata geonode/base/fixtures/default_oauth_apps.json".format(settings))
-            sh("DJANGO_SETTINGS_MODULE={} python -W ignore manage.py "
+            sh("DJANGO_SETTINGS_MODULE={} python3 -W ignore manage.py "
                "loaddata geonode/base/fixtures/initial_data.json".format(settings))
 
             call_task('start_geoserver')
 
             bind = options.get('bind', '0.0.0.0:8000')
             foreground = '' if options.get('foreground', False) else '&'
-            sh('DJANGO_SETTINGS_MODULE=%s python -W ignore manage.py runmessaging %s' %
+            sh('DJANGO_SETTINGS_MODULE=%s python3 -W ignore manage.py runmessaging %s' %
                (settings, foreground))
-            sh('DJANGO_SETTINGS_MODULE=%s python -W ignore manage.py runserver %s %s' %
+            sh('DJANGO_SETTINGS_MODULE=%s python3 -W ignore manage.py runserver %s %s' %
                (settings, bind, foreground))
             sh('sleep 30')
             settings = 'REUSE_DB=1 DJANGO_SETTINGS_MODULE=%s' % settings
@@ -970,7 +970,7 @@ def run_tests(options):
 --omit="*/__init__*,*/test*,*/wsgi*,*/version*,*/migrations*,\
 */search_indexes*,*/management/*,*/context_processors*,*/upload/*,*/qgis_server/*"'
     else:
-        prefix = 'python'
+        prefix = 'python3'
     local = options.get('local', 'false')  # travis uses default to false
 
     if not integration_tests and not integration_csw_tests and not integration_bdd_tests:
@@ -1041,7 +1041,7 @@ def setup_data(options):
     if settings and 'DJANGO_SETTINGS_MODULE' not in settings:
         settings = 'DJANGO_SETTINGS_MODULE=%s' % settings
 
-    sh("%s python -W ignore manage.py importlayers %s -v2" % (settings, data_dir))
+    sh("%s python3 -W ignore manage.py importlayers %s -v2" % (settings, data_dir))
 
 
 @needs(['package'])
@@ -1145,7 +1145,7 @@ def publish(options):
         sh('git tag -f debian/%s' % simple_version)
         sh('git push origin debian/%s' % simple_version)
         # sh('git push origin master')
-        sh('python setup.py sdist upload -r pypi')
+        sh('python3 setup.py sdist upload -r pypi')
 
 
 def versions():
@@ -1194,7 +1194,7 @@ def kill(arg1, arg2):
 
         running = False
         for line in lines:
-            # this kills all java.exe and python including self in windows
+            # this kills all java.exe and python3 including self in windows
             if ('%s' % arg2 in str(line)) or (os.name == 'nt' and '%s' % arg1 in str(line)):
                 running = True
 
