@@ -6971,7 +6971,7 @@ form input {
 /* Layout
 ----------------------- */
 #wrap {
-  background: #fff;
+  background: url("../background/bg-3-resources-div.png");
   padding-bottom: 40px;
   padding-top: 10px;
   width: 100%;
@@ -6997,7 +6997,7 @@ article.tab-pane {
 /* ------ Nav
 ------------------------------ */
 .navbar-inverse {
-  background-color: #333333;
+  background-color: white;
   border: 0;
 }
 .navbar-inverse .navbar-nav > li > a {
@@ -7236,7 +7236,7 @@ article.tab-pane {
   font-size: 4em;
 }
 .home #showcase {
-  background: url("../background/");
+  background: url("../background/img-1-landing.png");
   padding: 2em 0;
   text-align: center;
 }

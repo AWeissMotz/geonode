@@ -53,6 +53,7 @@
     "requirejs": "^2.3.6",
     "requirejs-text": "^2.0.15",
     "select2": "4.0.10",
+    "slick-carousel": "^1.8.1",
     "sortable": "^2.0.0",
     "timeago": "^1.6.7",
     "tree-filter": "^0.0.4",
