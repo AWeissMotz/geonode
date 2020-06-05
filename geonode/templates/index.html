@@ -20,7 +20,7 @@
   		<p></p>
 		<p>{{custom_theme.jumbotron_welcome_content|default:_("View and edit relevant data for your organisation")}}</p>
 		{% if not custom_theme.jumbotron_cta_hide %}
-    <a class="cta" href="#landing-welcome">Learn more</a>
+    <a class="cta" href="maps">Explore maps</a>
 		{% endif %}
 	</div>
   </div>
@@ -40,23 +40,36 @@
     </ol>
   
     <!-- Wrapper for slides -->
-    <div class="carousel-inner" role="listbox">
+    <!-- <div class="carousel-inner" role="listbox">
       <div class="item active">
-        <img src="..." alt="...">
+          <img src="../static/geonode/img/map_test.png" alt="Avatar" style="width:50%">   
         <div class="carousel-caption">
-          ...
         </div>
       </div>
       <div class="item">
-        <img src="..." alt="...">
+        <img src="../static/geonode/img/map_test2.PNG" alt="...">
         <div class="carousel-caption">
-          ...
         </div>
       </div>
-      ...
+    </div> -->
+
+    <div class="carousel-inner" role="listbox">     
+      <div class="item active">
+          <img src="../static/geonode/img/map_test.png" alt="Avatar" style="width:50%">   
+        <div class="carousel-caption">
+        </div>
+      </div>
+      <div class="item">
+        <img src="../static/geonode/img/map_test2.PNG" alt="...">
+        <div class="carousel-caption">
+        </div>
+      </div> 
     </div>
   <!-- End Carousel for maps -->
 
+  <!-- <div class="col-md-12 grid-spacer">
+    {% include 'base/_resourcebase_snippet.html' %}
+  </div> -->
   
     <!-- Controls -->
     <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
@@ -79,23 +92,19 @@
              {% facets as facets %}
               <div class="col-md-6">
                 <p><a href="{% url "layer_browse" %}"><i class="fa fa-square-o fa-4x rotate-45"></i></a></p>
+                <div class="cta"
                 <h2><a href="{% url "layer_browse" %}">{{ facets.layer|default:_("No") }} {% blocktrans count counter=facets.layer %}Layer{% plural %}Layers{% endblocktrans %}</a></h2>
-                <p>{% trans "Click to search for geospatial data published by other users, organizations and public sources. Download data in standard formats." %}</p>
-                {% if user.is_authenticated %}
-                <p class="text-center"><a class="btn btn-default" href="{% url "layer_upload" %}" role="button">{% trans "Add layers" %} &raquo;</a></p>
-                {% else %}
-                <p class="text-center"><a class="btn btn-default" href="{% url "layer_browse" %}" role="button">{% trans "Explore layers" %} &raquo;</a></p>
-                {% endif %}
               </div>
-              <div class="col-md-6">
+                <img id="layers" src="../static/geonode/img/_i_layers.svg"> 
+                <p>{% trans "Click to view the layers,you can then provide comments on the layers and edit them or suggest changes" %}</p>
+              </div>
+              <div class="col-md-6">                
                 <p><a href="{% url "maps_browse" %}"><i class="fa fa-map-marker fa-4x"></i></a></p>
+                <div class="cta"
                 <h2><a href="{% url "maps_browse" %}">{{ facets.map|default:_("No") }} {% blocktrans count counter=facets.map %}Map{% plural %}Maps{% endblocktrans %}</a></h2>
-                <p>{% trans "Data is available for browsing, aggregating and styling to generate maps which can be saved, downloaded, shared publicly or restricted to specify users only." %}</p>
-                {% if user.is_authenticated %}
-                <p><a class="btn btn-default" href="{% url "new_map" %}" role="button">{% trans "Create maps" %} &raquo;</a></p>
-                {% else %}
-                <p><a class="btn btn-default" href="{% url "maps_browse" %}" role="button">{% trans "Explore maps" %} &raquo;</a></p>
-                {% endif %}
+              </div>
+                <img id="maps" src="../static/geonode/img/_i_map.svg">       
+                <p>{% trans "Explore other maps, view relevant layers together to get the bigger picture" %}</p>
               </div>
             {% endwith %}
             </div>

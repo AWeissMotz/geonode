@@ -1150,7 +1150,7 @@ body {
   font-family: 'Lato', sans-serif;
   font-size: 16px;
   line-height: 1.42857143;
-  color: #333333;
+  color: white;
   background-color: #fff;
 }
 input,
@@ -1167,13 +1167,15 @@ a {
 }
 a:hover,
 a:focus {
-  color: #1b4060;
-  text-decoration: underline;
+  color: #1b4060;  
 }
 a:focus {
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
+a:focus, a:hover { 
+  text-decoration: none;
+} 
 figure {
   margin: 0;
 }
@@ -6925,10 +6927,11 @@ div#user_messages {
   }
 }
 body {
-  background: #333333;
+  background: white;
   font-family: 'Source Sans Pro', Arial, sans-serif;
   font-size: 15px;
   padding-top: 60px;
+  min-height: 100px;
 }
 a {
   color: #2c689c;
@@ -7135,8 +7138,7 @@ article.tab-pane {
 .home .cta:hover,
 .home .cta:focus,
 .home .cta:active {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    transform: translateY(-3px);   
     cursor: pointer;
 }
 
@@ -7236,7 +7238,7 @@ article.tab-pane {
   font-size: 4em;
 }
 .home #showcase {
-  background: url("../background/img-1-landing.png");
+  background: url("../background/bg-5-stay-in-touch-div-flipped-verticaly.png");
   padding: 2em 0;
   text-align: center;
 }
@@ -7252,6 +7254,30 @@ article.tab-pane {
 }
 .home #showcase p {
   font-size: 18px;
+}
+
+.home #showcase .col-md-6 img{
+  height: 150px;
+  width: 150px;
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+} 
+.home #showcase .col-md-6 .cta,
+.home #showcase .col-md-6  .cta:hover,
+.home #showcase .col-md-6  .cta:focus,
+.home #showcase .col-md-6  .cta:active {
+    display: block;
+    width: fit-content;
+    width: -moz-fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #1DD069;
+    color: #ffffff;
+    font-size: 18pt;
+    font-weight: bold;
+    padding: 10px 30px 10px 30px;
+    border-radius: 4px;
+    margin-top: 30px;
+    margin-bottom: 10px;
 }
 /* autocomplete
 ------------------------*/
@@ -7274,8 +7300,7 @@ article.tab-pane {
 .jumbotron {
   background: #2c689c;
   color: white;
-  padding: 40px 0 60px;
-  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+  padding: 40px 0 60px; 
   margin-top: -10px;
 }
 .jumbotron a {
@@ -7286,14 +7311,16 @@ article.tab-pane {
 }
 .home-facets {
   text-align: center;
-  padding: 2em 0;
+  padding-bottom: 2em 0;
+  padding-top: 0px;
 }
 .home-facets a {
-  color: black;
+  color: white;
 }
 .home-facets a:hover {
-  color: #2c689c;
+  color: white;
   text-decoration: none;
+  transform: translateY(-3px);
 }
 .partner_logo {
   background-repeat: no-repeat;
@@ -8284,3 +8311,21 @@ form-inline {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+.carousel-inner img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+} 
+.carousel-inner card{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+   transition: 0.3s;
+   min-width: 40%;
+   border-radius: 5px;
+}  
+.carousel-inner p{
+  color: black;
+} 
+/* .carousel-inner .container{
+  padding: 2px 16px;
+}   */
